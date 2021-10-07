@@ -70,8 +70,9 @@ void encodeMsg(FILE* in, FILE* out, char* msg){
 
 };
 
-/* 
-Parameters: 
+
+/*
+Parameters:
 Returns: void
 // no comments provided in doc specs
 */
@@ -79,18 +80,26 @@ void charToBinary(char character, unsigned int *integer){
     int c = character;
 	printf("c's binary value: ");
 	for (int i = 0; i < 8; i++) {
-		*integer = *integer + 10*((c << i) & 0x80) ? 1 : 0;
+		//*integer = *integer + 10*((c << i) & 0x80) ? 1 : 0;
+    *integer = (c>>i) & 1 ? 1 : 0);
 	}
 };
 
-/* 
-Parameters: 
-Returns: 
-Converts a binary number to decimal. 
+/*
+Parameters:
+Returns:
+Converts a binary number to decimal.
     - (Notice this is returned as an unsigned char...
-       Remember we are working with three pixels which equals 9 bits,   
+       Remember we are working with three pixels which equals 9 bits,
        but the most significant bit is always 0. Why???)*/
-unsigned char binToCharacter(int*);
+unsigned char binToCharacter(int* integer){
+    /*use strol to convert from a string into a long int*/
+    /*parameters:  string containing the binary, the beginning & the base*/
+    unsigned char c = strtol(integer, 0, 2);
+    return c;
+
+}
+
 
 /* 
 Parameters: 
