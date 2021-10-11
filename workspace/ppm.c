@@ -72,13 +72,12 @@ Returns:
 Writes the pixels to the output ppm file using fprintf*/
 void writePixels(FILE* filePointer, pixel_t** pix, header_t hdr){
    
-
 }
 
-// ???
-void ckws_comments (FILE* filePointer){
+// extra credit, something to do with ignoring comments
+// void ckws_comments (FILE* filePointer){
 
-}
+// }
 
 /*
 Parameters: 

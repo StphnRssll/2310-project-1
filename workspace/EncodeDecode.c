@@ -9,6 +9,7 @@ PA1 - DUE OCT. 8
 /* This file is where we implement the functions listed in EncodeDecode.h */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "./EncodeDecode.h"
 #include "./utils.h"
 
@@ -56,18 +57,49 @@ void encodeMsg(FILE* in, FILE* out, char* msg){
     // step 2: call writeHeader, passing in our original ppm's header
     header_t h = readHeader(in);
     writeHeader(out,h);
+
     // step 3: convert each character to its binary equivalent
-    // INCOMPLETE. TODO: fini
-    int msgLength = sizeof *msg / sizeof *msg;
-    unsigned int *msgInBinarryArray = (unsigned int*)malloc(256 * sizeof(unsigned int));
-    for(int i = 0; i < msgLength; i++){
-        unsigned int *binaryRepresentation = NULL;
-        // charToBinary(msg[i],binaryRepresentation); // This is the line causing segfault
-        // add each binaryRep to an array of ints
-        // msgInBinarryArray[i] = *binaryRepresentation;
-        // printf("%d",msgInBinarryArray[i]);
+    // allocate msgAs2DArrayOfBinary
+    int msgLength = strlen(msg);
+    int rows = msgLength;
+    int cols = 8;
+    int* msgAs2DArrayOfBinary[rows];
+    for (int i = 0; i < rows; i++){
+        msgAs2DArrayOfBinary[i] = (int*)malloc(cols * sizeof(int));
     }
 
+    // testing
+    // for(int i = 0; i < msgLength; i++){
+    //    printf("msg[i]: %c",msg[i]);
+    //     for(int j=0;j<8;j++){
+    //         printf("%d", msgAs2DArrayOfBinary[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+
+    // Loop through msg[] for the length of the message, store each character
+    // in its binary form in msgAs2DArrayOfBinary[]
+    for(int i = 0; i < msgLength; i++){
+        int binaryRepresentation[8];
+        charToBinary(msg[i],binaryRepresentation);
+        // add each binaryRep to an array of ints
+        msgAs2DArrayOfBinary[i] = binaryRepresentation;
+    }
+
+    // testing
+    for(int i = 0; i < msgLength; i++){
+       printf("msg[i] (%c) in binary: ",msg[i]);
+        for(int j=0;j<8;j++){
+            printf("%d", msgAs2DArrayOfBinary[i][j]);
+        }
+        printf("\n");
+    }
+
+
+    // step 4: Encode the binary number in the image
+    //  - 4.1 get original image
+    //      - 4.1.1 test this before moving
+    
 };
 
 
@@ -76,12 +108,12 @@ Parameters:
 Returns: void
 // no comments provided in doc specs
 */
-void charToBinary(char character, unsigned int *integer){
-    int c = character;
-	printf("c's binary value: ");
+void charToBinary(char character, int *integer){
+    // printf("\nc: %c\n",c);
+    // printf("c's binary value: ");
 	for (int i = 0; i < 8; i++) {
-		//*integer = *integer + 10*((c << i) & 0x80) ? 1 : 0;
-    *integer = (c>>i) & 1 ? 1 : 0);
+        integer[i] = (character>>i) & 1 ? 1 : 0;
+        // printf("%d", integer[i]);
 	}
 };
 
@@ -92,13 +124,13 @@ Converts a binary number to decimal.
     - (Notice this is returned as an unsigned char...
        Remember we are working with three pixels which equals 9 bits,
        but the most significant bit is always 0. Why???)*/
-unsigned char binToCharacter(int* integer){
-    /*use strol to convert from a string into a long int*/
-    /*parameters:  string containing the binary, the beginning & the base*/
-    unsigned char c = strtol(integer, 0, 2);
-    return c;
+// unsigned char binToCharacter(int* integer){
+//     /*use strol to convert from a string into a long int*/
+//     /*parameters:  string containing the binary, the beginning & the base*/
+//     unsigned char c = strtol(integer, 0, 2);
+//     return c;
 
-}
+// }
 
 
 /* 

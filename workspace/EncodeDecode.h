@@ -42,7 +42,7 @@ Below are the steps I took in my function.
 */
 void encodeMsg(FILE* in, FILE* out, char* msg);
 
-void charToBinary(char , unsigned int *);
+void charToBinary(char , int *);
 
 /* This function is used to convert a binary number to decimal. 
    Notice this is returned as an unsigned char.  
