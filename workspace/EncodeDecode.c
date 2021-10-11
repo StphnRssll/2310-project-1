@@ -65,35 +65,22 @@ void encodeMsg(FILE* in, FILE* out, char* msg){
     int cols = 8;
     int* msgAs2DArrayOfBinary[rows];
     for (int i = 0; i < rows; i++){
-        msgAs2DArrayOfBinary[i] = (int*)malloc(cols * sizeof(int));
+        msgAs2DArrayOfBinary[i] = (int*)malloc(cols * sizeof(int*));
+    }
+    // Loop through msg[] for the length of the message, store each character
+    // in its binary form in msgAs2DArrayOfBinary[]
+    for(int i = 0; i < msgLength; i++){
+        charToBinary(msg[i],msgAs2DArrayOfBinary[i]);
     }
 
     // testing
     // for(int i = 0; i < msgLength; i++){
-    //    printf("msg[i]: %c",msg[i]);
+    //    printf("msg[i] (%c) in binary: ",msg[i]);
     //     for(int j=0;j<8;j++){
     //         printf("%d", msgAs2DArrayOfBinary[i][j]);
     //     }
     //     printf("\n");
     // }
-
-    // Loop through msg[] for the length of the message, store each character
-    // in its binary form in msgAs2DArrayOfBinary[]
-    for(int i = 0; i < msgLength; i++){
-        int binaryRepresentation[8];
-        charToBinary(msg[i],binaryRepresentation);
-        // add each binaryRep to an array of ints
-        msgAs2DArrayOfBinary[i] = binaryRepresentation;
-    }
-
-    // testing
-    for(int i = 0; i < msgLength; i++){
-       printf("msg[i] (%c) in binary: ",msg[i]);
-        for(int j=0;j<8;j++){
-            printf("%d", msgAs2DArrayOfBinary[i][j]);
-        }
-        printf("\n");
-    }
 
 
     // step 4: Encode the binary number in the image
@@ -115,6 +102,7 @@ void charToBinary(char character, int *integer){
         integer[i] = (character>>i) & 1 ? 1 : 0;
         // printf("%d", integer[i]);
 	}
+    // printf("\n");
 };
 
 /*
