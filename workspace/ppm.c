@@ -1,8 +1,8 @@
 /*****************
 Stephen Russell
-SRUSSE5 
+SRUSSE5
 Ciara Morrissey
-CIARA4 
+CIARA4
 CPSC 2310 F21 - section 002
 PA1 - DUE OCT. 8
 *****************/
@@ -61,23 +61,23 @@ header_t readHeader(FILE* in){
         fscanf(in, "%d", &header->maxVal);
     };
     // test
-    printf("magicNum:%s\nwidth:%d\nheight:%d\nmaxVal:%d\n\n",header->magicNum,header->width,header->height,header->maxVal);
+    // printf("magicNum:%s\nwidth:%d\nheight:%d\nmaxVal:%d\n\n",header->magicNum,header->width,header->height,header->maxVal);
     return *header;
 }
 
-/* 
-Parameters: 
+/*
+Parameters:
     -in:
     -hdr:
 Returns: 2D array of pixels
 Reads the values of the pixels in the ppm image by:
-    - Dynamically allocating the memory for the 2D array. 
-    - Reads in the pixels from the image storing the pixels in the 2D array 
+    - Dynamically allocating the memory for the 2D array.
+    - Reads in the pixels from the image storing the pixels in the 2D array
     - Returns the 2D array. */
 // note: DON'T ALLOCATE MEMORY FOR THE POINTERS ON THE STACK
 pixel_t** readPixels(FILE* in, header_t hdr){
     // FROM STEPHEN: commented this out so i can compile w/out warnings
-    
+
     // allocation
     pixel_t** pix = malloc(hdr.height * sizeof(struct pixel**));
     for (int i=0; i<hdr.height; i++) {
@@ -87,10 +87,10 @@ pixel_t** readPixels(FILE* in, header_t hdr){
     printf("here hdr.height: %d",hdr.height);
 
     // storing pixels in pix
-    for (int i=0; i<hdr.height; i++) {
-        for (int j=0; j<hdr.width; j++) {
-            fscanf(in, "%hhu %hhu %hhu", &pix[i][j].r, &pix[i][j].g, &pix[i][j].b);
-            printf("print: %hhu %hhu %hhu\n", pix[i][j].r, pix[i][j].g, pix[i][j].b);
+  for (int i=0; i<hdr.height; i++) {
+    for (int j=0; j<hdr.width; j++) {
+      fscanf(in, "%hhu %hhu %hhu", &pix[i][j].r, &pix[i][j].g, &pix[i][j].b);
+      printf("print: %hhu %hhu %hhu\n", pix[i][j].r, pix[i][j].g, pix[i][j].b);
         }
     }
     return pix;
@@ -107,11 +107,21 @@ void writeHeader(FILE* out, header_t hdr){
 }
 
 /*
-Parameters: 
-Returns: 
+Parameters:
+Returns:
 Writes the pixels to the output ppm file using fprintf*/
 void writePixels(FILE* out, pixel_t** pix, header_t hdr){
-   
+  //fprintf(out, "%c %d %d %d", hdr.magicNum, hdr.width, hdr.height,
+  //header.maxVal);
+  //fprintf(out, "%d %d %d" pix.r, pix.g, pix.b);
+
+  for (int i=0; i<hdr.height; i++) {
+    for (int j=0; j<hdr.width; j++) {
+      fprintf("print: %hhu %hhu %hhu\n", pix[i][j].r, pix[i][j].g, pix[i][j].b);
+      }
+  }
+
+
 }
 
 // extra credit, something to do with ignoring comments
@@ -120,9 +130,15 @@ void writePixels(FILE* out, pixel_t** pix, header_t hdr){
 // }
 
 /*
-Parameters: 
-Returns: 
+Parameters:
+Returns:
 Frees memory used during program*/
 void freeMemory(pixel_t** pix, header_t hdr){
+
+  /*free memory the opposite way of how you allocate it*/
+  for (int i=0; i<hdr.height; i++) {
+      free(pix[i]);
+  }
+  free (pix);
 
 }
