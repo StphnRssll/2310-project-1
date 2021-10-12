@@ -65,7 +65,7 @@ void encodeMsg(FILE* in, FILE* out, char* msg){
     int cols = 8;
     int* msgAs2DArrayOfBinary[rows];
     for (int i = 0; i < rows; i++){
-        msgAs2DArrayOfBinary[i] = (int*)malloc(cols * sizeof(int*));
+        msgAs2DArrayOfBinary[i] = (int*)malloc(cols * sizeof(int));
     }
     // Loop through msg[] for the length of the message, store each character
     // in its binary form in msgAs2DArrayOfBinary[]
@@ -73,7 +73,7 @@ void encodeMsg(FILE* in, FILE* out, char* msg){
         charToBinary(msg[i],msgAs2DArrayOfBinary[i]);
     }
 
-    // testing
+    // testing that msg[] is properly populated 
     // for(int i = 0; i < msgLength; i++){
     //    printf("msg[i] (%c) in binary: ",msg[i]);
     //     for(int j=0;j<8;j++){
@@ -82,11 +82,17 @@ void encodeMsg(FILE* in, FILE* out, char* msg){
     //     printf("\n");
     // }
 
+    // testing that charToBin and binToCharacter work correctly
+    // for(int i = 0; i < msgLength; i++){
+    //     printf("msg[i]: %c ... ",(unsigned char)msg[i]);
+    //     // printf("binToCharacter(msgAs2DArrayOfBinary[i]): %hhu", (char)binToCharacter(msgAs2DArrayOfBinary[i]));
+    //     printf("binToChar msgAs2DArr[0]: %c", binToCharacter(msgAs2DArrayOfBinary[i]));
+    //     printf("\n");
+    // }
 
     // step 4: Encode the binary number in the image
     //  - 4.1 get original image
-    //      - 4.1.1 test this before moving
-    
+    //      - 4.1.1 test this before moving on
 };
 
 
@@ -95,14 +101,13 @@ Parameters:
 Returns: void
 // no comments provided in doc specs
 */
-void charToBinary(char character, int *integer){
-    // printf("\nc: %c\n",c);
-    // printf("c's binary value: ");
-	for (int i = 0; i < 8; i++) {
-        integer[i] = (character>>i) & 1 ? 1 : 0;
-        // printf("%d", integer[i]);
-	}
-    // printf("\n");
+void charToBinary(char character, int *binArray){
+    int i = 8;
+    while (character > 0){
+        binArray[i] = character%2;
+        character = character/2;
+        i--;
+    }
 };
 
 /*
@@ -112,13 +117,29 @@ Converts a binary number to decimal.
     - (Notice this is returned as an unsigned char...
        Remember we are working with three pixels which equals 9 bits,
        but the most significant bit is always 0. Why???)*/
-// unsigned char binToCharacter(int* integer){
-//     /*use strol to convert from a string into a long int*/
-//     /*parameters:  string containing the binary, the beginning & the base*/
-//     unsigned char c = strtol(integer, 0, 2);
-//     return c;
+ unsigned char binToCharacter(int* integer){
+     /*use strol to convert from a string into a long int*/
+     /*parameters:  string containing the binary, the beginning & the base*/
+     //unsigned char c = strtol(integer, 0, 2);
+     //return c;
 
-// }
+     /*the values of the powers of 2, will be useful in conversion*/
+     int values[8] = {128, 64, 32, 16, 8, 4, 2, 1};
+     int sum = 0;
+     unsigned char charConvert;
+
+     /*convert from binary to char*/
+     for(int i = 1; i<9; i++){
+       if(integer[i] == 1){
+         sum = sum + values[i-1];
+       }
+     }
+
+     /*cast to unsigned char to match return type*/
+     charConvert = ((unsigned char) sum);
+     return charConvert;
+ }
+
 
 
 /* 
@@ -156,13 +177,27 @@ Converts a decimal number to binary, storing the bits in an array. */
 void dec2bin(int*, int);
 
 /*
+Parameters:
+returns: double pointer to allocated 2D array
+Allocates the memory for the pixels then returns the double pointer
+*/
+// pixel_t** allocatePixels(FILE* in){
+
+// };
+
+
+/*
 Parameters: 
 Returns: void
 1.	Calls readHeader() to read the header of the encoded ppm image
-2.	Allocates the memory for the pixels of the encoded ppm image. 
-        Suggestion:  you could create a function that allocates the memory 
-        for the pixels then return the double pointer. 
-3.	Uses readPixel() calls to read the pixels of the encoded ppm image,
+
+// IGNORE vvv
+// 2.	Allocates the memory for the pixels of the incoming ppm image (the encoded image). 
+//         Suggestion:  you could create a function that allocates the memory 
+//         for the pixels then return the double pointer. 
+// IGNORE ^^^
+
+3.	Uses readPixels() calls to read the pixels of the encoded ppm image,
     storing them in the memory it just allocated.
 4.	Grabs the last digit of the red, green, and blue numbers, 
     saves them as integers (int red, int green, int blue)
@@ -175,4 +210,12 @@ Returns: void
                 [arr] is an array that'll be used by queue to store this digit
             and [address] is the address of a variable that will be used to 
                 keep track of the number of digits passed to queue.*/
-void decodeMsg(FILE*);
+void decodeMsg(FILE* in){
+    // 1.	Calls readHeader()
+    // header_t h = readHeader(in);
+    
+    // printf("h.height: %d\nh.magicNum: %d\n",h.height,h.magicNum);
+    // pixel_t** image = readPixels(in, h);
+    // printf("image%d",image[0][0].r);
+    
+};

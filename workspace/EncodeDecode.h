@@ -6,7 +6,7 @@ CIARA4
 CPSC 2310 F21 - section 002
 PA1 - DUE OCT. 8
 *****************/
-/* This file was provided by Feaster
+/* This file was provided by the starter code
 Contains additional prototypes of functions she needed to encode and 
 decode a message in an image. */
 #include "./ppm.h"
@@ -74,7 +74,7 @@ There are several steps needed to decode the message.
 2.	Allocate the memory for the pixels of the encoded ppm image. 
         Suggestion:  you could create a function that allocates the memory 
         for the pixels then return the double pointer. 
-3.	Call readPixel to read the pixels of the encoded ppm image storing 
+3.	Call readPixels to read the pixels of the encoded ppm image storing 
     them in the memory you just allocated.
 4.	Grab the last digit of the red, green, and blue numbers. When you grab 
     these digits save them as integers. 

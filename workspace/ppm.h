@@ -6,7 +6,7 @@ CIARA4
 CPSC 2310 F21 - section 002
 PA1 - DUE OCT. 8
 *****************/
-/* This file was provided by Feaster.
+/* This file was provided by the starter code.
 Contains the prototypes of the functions we implement. 
 These functions deal specifically with a ppm file. 
 It also provides the definition of two structs:
@@ -44,7 +44,7 @@ If you are not sure about which method not to use, you should come see me.
 You will then read in the pixels from the image storing 
 the pixels in the 2D array you just created and return the 2D array. 
 */
-pixel_t** readPixel(FILE*, header_t);
+pixel_t** readPixels(FILE*, header_t);
 
 // This function will be used to write the header to the output ppm file. 
 // Use fprintf to write the header information to the output file.

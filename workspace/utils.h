@@ -6,7 +6,7 @@ CIARA4
 CPSC 2310 F21 - section 002
 PA1 - DUE OCT. 8
 *****************/
-/* This file was provided by Feaster.
+/* This file was provided by the starter code.
 Provides the prototypes for two functions needed to check the number of 
 command line arguments passed to the program. It also
 contains a function that check if the file pointers opened successfully. */

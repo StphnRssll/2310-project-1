@@ -32,29 +32,41 @@ header_t readHeader(FILE* in){
     fscanf(in, "%d %d", &header->width, &header->height);
     // 4th line: get maxVal
     fscanf(in, "%d", &header->maxVal);
+    // test
+    // printf("height:%d]maginNum:%s\nmaxVal:%d\nwidth:%d\n",header->height,header->magicNum,header->maxVal,header->width);
     return *header;
 }
 
 /* 
 Parameters: 
-    -filePointer:
+    -in:
     -hdr:
-Returns: 
+Returns: 2D array of pixels
 Reads the values of the pixels in the ppm image by:
     - Dynamically allocating the memory for the 2D array. 
     - Reads in the pixels from the image storing the pixels in the 2D array 
     - Returns the 2D array. */
 // note: DON'T ALLOCATE MEMORY FOR THE POINTERS ON THE STACK
-// pixel_t** readPixel(FILE* filePointer, header_t hdr){
-//     // FROM STEPHEN: commented this out so i can compile w/out warnings
-//      pix = malloc(hdr.height * sizeof(struct pixel*));
-
-//     for (int i=0; i<hdr.height; i++) {
-//         pix[i] = malloc(hdr.width * sizeof(struct pixel));
-//     }
+pixel_t** readPixels(FILE* in, header_t hdr){
+    // FROM STEPHEN: commented this out so i can compile w/out warnings
     
+    // allocation
+    pixel_t** pix = malloc(hdr.height * sizeof(struct pixel**));
+    for (int i=0; i<hdr.height; i++) {
+        pix[i] = malloc(hdr.width * sizeof(struct pixel*));
+    }
 
-// }
+    printf("here hdr.height: %d",hdr.height);
+
+    // storing pixels in pix
+    for (int i=0; i<hdr.height; i++) {
+        for (int j=0; j<hdr.width; j++) {
+            fscanf(in, "%hhu %hhu %hhu", &pix[i][j].r, &pix[i][j].g, &pix[i][j].b);
+            printf("print: %hhu %hhu %hhu\n", pix[i][j].r, pix[i][j].g, pix[i][j].b);
+        }
+    }
+    return pix;
+}
 
 /*
 Parameters:
@@ -70,12 +82,12 @@ void writeHeader(FILE* out, header_t hdr){
 Parameters: 
 Returns: 
 Writes the pixels to the output ppm file using fprintf*/
-void writePixels(FILE* filePointer, pixel_t** pix, header_t hdr){
+void writePixels(FILE* out, pixel_t** pix, header_t hdr){
    
 }
 
 // extra credit, something to do with ignoring comments
-// void ckws_comments (FILE* filePointer){
+// void ckws_comments (FILE* in){
 
 // }
 
