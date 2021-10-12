@@ -144,7 +144,7 @@ Converts a binary number to char.
 Parameters:
 Returns: void
 (Called by decodeMsg... As the decodeMsg function grabs the onesdigit of each
-pixel channel (red,green, and blue) it passes that value to queue as “n”.)
+pixel channel (red, green, and blue) it passes that value to queue as “n”.)
 
 Keeps track of the “n’s” passed to the function.
 
@@ -166,7 +166,15 @@ Obviously, the character returned from binToCharacter should be less than 256.
 If the value retuned from binToCharacter is less than 256 then
 queue prints the character.
 */
-void queue(int, int*, int*);
+void queue(int digit, int* digitArr, int* digitCounter){
+    // append digit to digitArr and increment digitCounter
+    digitArr[*digitCounter] = digit;
+    *digitCounter++;
+    // if digitCounter >=9, convert digitArr to a char and print
+    if(digitCounter>=9){
+        binToCharacter(digitArr)
+    }
+};
 
 /*
 Parameters:
@@ -226,13 +234,38 @@ void decodeMsg(FILE* in){
     pixel_t** image = readPixels(in, h);
     int digitCounter = 0;
     int digitsArray[1024];
+    int nRed=0;
+    int nBlue=0;
+    int nGreen=0;
     for (int i=0; i<h.width; i++) {
         for (int j=0; j<h.height; j++) {
+            if(image[i][j].r < 10){
+                nRed = image[i][j].r;
+            } else if(image[i][j].r < 100){
+                nRed = image[i][j].r%10;
+            } else {
+                nRed = image[i][j].r%100;
+            }
+            if(image[i][j].b < 10){
+                nBlue = image[i][j].b;
+            } else if(image[i][j].b < 100){
+                nBlue = image[i][j].b%10;
+            } else {
+                nBlue = image[i][j].b%100;
+            }
+            if(image[i][j].g < 10){
+                nGreen = image[i][j].g;
+            } else if(image[i][j].g < 100){
+                nGreen = image[i][j].g%10;
+            } else {
+                nGreen = image[i][j].g%100;
+            }
             // printf("print: %hhu %hhu %hhu\n", image[i][j].r, image[i][j].g, image[i][j].b);
             // queue(digit, arr, address);
-            // queue(image[i][j].r, digitsArray, &digitCounter);
-            // queue(image[i][j].b, digitsArray, &digitCounter);
-            // queue(image[i][j].g, digitsArray, &digitCounter);
+            // printf("image[i][j].r: %d",image[i][j].r);
+            queue(nRed, digitsArray, &digitCounter);
+            queue(nBlue, digitsArray, &digitCounter);
+            queue(nGreen, digitsArray, &digitCounter);
         }
     }
 };

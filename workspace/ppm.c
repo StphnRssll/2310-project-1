@@ -84,9 +84,6 @@ pixel_t** readPixels(FILE* in, header_t hdr){
         pix[i] = malloc(hdr.width * sizeof(struct pixel*));
     }
 
-    printf("here hdr.height: %d",hdr.height);
-    printf("here hdr.width: %d",hdr.width);
-
     // storing pixels in pix
     for (int i=0; i<hdr.width; i++) {
         for (int j=0; j<hdr.height; j++) {
