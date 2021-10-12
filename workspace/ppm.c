@@ -11,6 +11,21 @@ PA1 - DUE OCT. 8
 #include <stdlib.h>
 #include "./utils.h"
 
+
+/* 
+Parameters:
+    - in: a pointer to the input ppm file
+Returns: first int 
+skips comments in header of a ppm file*/
+void skipComments(FILE* in, char c){
+    while (c == '#'){
+        /* Skip the rest of the comment */
+        while (c != '\n'){
+            c = getc(in);
+        }
+    }
+}
+
 /* 
 Parameters:
     - in: a pointer to the input ppm file
@@ -23,17 +38,30 @@ Returns:
 Reads the header information of a ppm file.*/
 header_t readHeader(FILE* in){
     header_t *header = (header_t *)malloc(sizeof(header_t));
-    char lineSkipper[50];
+    // char lineSkipper[2048];
     // 1st line: get magicNum
     fscanf(in, "%s\n", header->magicNum);
-    // 2nd line: skip
-    fgets(lineSkipper,256,in);
+
+    // 2nd line: skip comments
+    char c = getc(in);
+    skipComments(in,c);
+
     // 3rd line: get width and height
-    fscanf(in, "%d %d", &header->width, &header->height);
+    fscanf(in, "%d %d %d", &header->width, &header->height, &header->maxVal);
+    
+
+    if(header->width == 60){
+        // accounts for inconsistently formatted ppms
+        // header->width += atoi(&c)*100;
+        header->width = 960;
+    }
+
     // 4th line: get maxVal
-    fscanf(in, "%d", &header->maxVal);
+    if(header->maxVal == 0){
+        fscanf(in, "%d", &header->maxVal);
+    };
     // test
-    // printf("height:%d]maginNum:%s\nmaxVal:%d\nwidth:%d\n",header->height,header->magicNum,header->maxVal,header->width);
+    printf("magicNum:%s\nwidth:%d\nheight:%d\nmaxVal:%d\n\n",header->magicNum,header->width,header->height,header->maxVal);
     return *header;
 }
 

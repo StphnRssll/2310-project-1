@@ -42,7 +42,7 @@ clean:
 
 # target which runs build when we type make run
 run: build
-	@./$(TARGET) doggoP6WComment.ppm out.txt
+	@./$(TARGET) doggoP6WComment.ppm out.txt EncodedImage.ppm
 
 # Debugging tool which tells us which sources/headers are found
 which:

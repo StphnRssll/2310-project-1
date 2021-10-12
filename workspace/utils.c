@@ -22,7 +22,7 @@ not passed, the function prints a message to stderr that tells the user that
 there were not enough command line arguments and exits the program. */
 void checkArgs(int argCount, int desiredArgPassedCount){
     if(argCount != desiredArgPassedCount+1){
-        fprintf(stderr, "You passed %d arg(s). You must pass %d args.\n", argCount, desiredArgPassedCount-1);
+        fprintf(stderr, "You passed %d arg(s). You must pass %d args.\n", argCount, desiredArgPassedCount);
         exit(-1);
     }
 };

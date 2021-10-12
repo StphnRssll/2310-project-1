@@ -15,7 +15,7 @@ PA1 - DUE OCT. 8
 
 int main(int argc, char* argv[])
 {
-    checkArgs(argc, 2);
+    checkArgs(argc, 3);
     FILE* in = fopen(argv[1], "r");
     checkFile(in);
     FILE* out = fopen(argv[2], "w");
@@ -25,9 +25,9 @@ int main(int argc, char* argv[])
     encodeMsg(in, out, msg);
 
     // from stephen: this reads the file we just made into [dec]
-    // FILE* dec = fopen(argv[2], "r");
-    // checkFile(dec);
-    // decodeMsg(dec);
+    FILE* dec = fopen(argv[3], "r");
+    checkFile(dec);
+    decodeMsg(dec);
 
     // fclose(in);
     // fclose(out);

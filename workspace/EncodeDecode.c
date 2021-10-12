@@ -199,10 +199,9 @@ Returns: void
                 keep track of the number of digits passed to queue.*/
 void decodeMsg(FILE* in){
     // 1.	Calls readHeader()
-    // header_t h = readHeader(in);
+    header_t h = readHeader(in);
     
-    // printf("h.height: %d\nh.magicNum: %d\n",h.height,h.magicNum);
+    printf("h.height: %d\nh.magicNum: %s\n",h.height,h.magicNum);
     // pixel_t** image = readPixels(in, h);
     // printf("image%d",image[0][0].r);
-    
 };
