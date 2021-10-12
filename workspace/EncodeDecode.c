@@ -140,9 +140,6 @@ Converts a binary number to char.
      return charConvert;
  }
 
-
-
-
 /*
 Parameters:
 Returns: void
@@ -201,7 +198,11 @@ void decodeMsg(FILE* in){
     // 1.	Calls readHeader()
     header_t h = readHeader(in);
     
-    printf("h.height: %d\nh.magicNum: %s\n",h.height,h.magicNum);
-    // pixel_t** image = readPixels(in, h);
-    // printf("image%d",image[0][0].r);
+    // printf("h.height: %d\nh.magicNum: %s\n",h.height,h.magicNum);
+    pixel_t** image = readPixels(in, h);
+    for (int i=0; i<h.width; i++) {
+        for (int j=0; j<h.height; j++) {
+            printf("print: %hhu %hhu %hhu\n", image[i][j].r, image[i][j].g, image[i][j].b);
+        }
+    }
 };

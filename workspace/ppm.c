@@ -85,12 +85,12 @@ pixel_t** readPixels(FILE* in, header_t hdr){
     }
 
     printf("here hdr.height: %d",hdr.height);
+    printf("here hdr.width: %d",hdr.width);
 
     // storing pixels in pix
-  for (int i=0; i<hdr.height; i++) {
-    for (int j=0; j<hdr.width; j++) {
-      fscanf(in, "%hhu %hhu %hhu", &pix[i][j].r, &pix[i][j].g, &pix[i][j].b);
-      printf("print: %hhu %hhu %hhu\n", pix[i][j].r, pix[i][j].g, pix[i][j].b);
+    for (int i=0; i<hdr.width; i++) {
+        for (int j=0; j<hdr.height; j++) {
+            fscanf(in, "%c %c %c", &pix[i][j].r, &pix[i][j].g, &pix[i][j].b);
         }
     }
     return pix;
@@ -115,13 +115,11 @@ void writePixels(FILE* out, pixel_t** pix, header_t hdr){
   //header.maxVal);
   //fprintf(out, "%d %d %d" pix.r, pix.g, pix.b);
 
-  for (int i=0; i<hdr.height; i++) {
-    for (int j=0; j<hdr.width; j++) {
-      fprintf("print: %hhu %hhu %hhu\n", pix[i][j].r, pix[i][j].g, pix[i][j].b);
-      }
-  }
-
-
+//   for (int i=0; i<hdr.height; i++) {
+//     for (int j=0; j<hdr.width; j++) {
+//       fprintf("print: %hhu %hhu %hhu\n", pix[i][j].r, pix[i][j].g, pix[i][j].b);
+//       }
+//   }
 }
 
 // extra credit, something to do with ignoring comments
@@ -134,11 +132,9 @@ Parameters:
 Returns:
 Frees memory used during program*/
 void freeMemory(pixel_t** pix, header_t hdr){
-
   /*free memory the opposite way of how you allocate it*/
   for (int i=0; i<hdr.height; i++) {
       free(pix[i]);
   }
   free (pix);
-
 }
