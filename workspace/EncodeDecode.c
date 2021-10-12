@@ -224,9 +224,15 @@ void decodeMsg(FILE* in){
     
     // printf("h.height: %d\nh.magicNum: %s\n",h.height,h.magicNum);
     pixel_t** image = readPixels(in, h);
+    int digitCounter = 0;
+    int digitsArray[1024];
     for (int i=0; i<h.width; i++) {
         for (int j=0; j<h.height; j++) {
-            printf("print: %hhu %hhu %hhu\n", image[i][j].r, image[i][j].g, image[i][j].b);
+            // printf("print: %hhu %hhu %hhu\n", image[i][j].r, image[i][j].g, image[i][j].b);
+            // queue(digit, arr, address);
+            // queue(image[i][j].r, digitsArray, &digitCounter);
+            // queue(image[i][j].b, digitsArray, &digitCounter);
+            // queue(image[i][j].g, digitsArray, &digitCounter);
         }
     }
 };
