@@ -50,15 +50,35 @@ Steps:
 */
 void encodeMsg(FILE* in, FILE* out, char* msg){
     // step 1: declare variables
-    // int charCounter = 0;
-    // int bitCounter = 0;
-    // int nineValsToBeAddedToThreeRGBPixels[9];
+     int charCounter = 0;
+     int bitCounter = 7;
+     /*nine values to be added to RGB pixels*/
+     int vals[9];
+     pixel_t** pix;
 
-    // step 2: call writeHeader, passing in our original ppm's header
+    // step 2: call readHeader, passing in our original ppm's header
     header_t h = readHeader(in);
-    writeHeader(out,h);
+    pix = readPixel(in, h)
 
-    // step 3: convert each character to its binary equivalent
+    // step 3: write the header info to output file
+    writeHeader(out, h);
+
+    /*removes last digit from data containing pixels*/
+    removeDigit(pix, h);
+
+    /*calculate char count of msg*/
+    while(msg[charCounter+1] != '\0'){
+      charCounter = charCounter+1;
+    }
+
+    /*loop through pixel data in order to Encode
+    add last digit of message to pixels*/
+    for(int i = 0; i<charCounter+1; i++){
+      charToBinary(msg[i], temp);
+    }
+
+  /**************I STOPPED WORKING HERE - CM**********************/
+
     // allocate msgAs2DArrayOfBinary
     int msgLength = strlen(msg);
     int rows = msgLength;
@@ -73,7 +93,7 @@ void encodeMsg(FILE* in, FILE* out, char* msg){
         charToBinary(msg[i],msgAs2DArrayOfBinary[i]);
     }
 
-    // testing that msg[] is properly populated 
+    // testing that msg[] is properly populated
     // for(int i = 0; i < msgLength; i++){
     //    printf("msg[i]: %c",msg[i]);
     //     for(int j=0;j<8;j++){
@@ -93,7 +113,7 @@ void encodeMsg(FILE* in, FILE* out, char* msg){
     // step 4: Encode the binary number in the image
     //  - 4.1 get original image
     //      - 4.1.1 test this before moving on
-};
+}
 
 
 /*
