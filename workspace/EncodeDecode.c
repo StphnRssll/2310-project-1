@@ -13,40 +13,20 @@ PA1 - DUE OCT. 8
 #include "./EncodeDecode.h"
 #include "./utils.h"
 
-/*
-Parameters:
-    - pixel: pixel_t struct pointer to the pixel we want to modify
-    - header: header_t struct of the pixel we want to modify
-Returns:
-Removes the value of the ones place of each channel in the pixel
-and replaces it with 0. For example, if the red channel of the first pixel
-has an integer value of 255, it reduces the value by 5 to equal 250.*/
+/*Removes the value of the ones place of each channel in the pixel
+and replaces it with 0.*/
 void removeDigit(pixel_t** pixel, header_t header){
 
 };
 
 /*
-Parameters:
-    - in -
-Returns:
-Implements the logic described in the image in the PA1Specs document.
-For each character, adds a 1 or 0 to the value of each of the three channels
-for the three pixels.
-
-Steps:
 1.	Declare necessary local variables
-    - character counter, helpful when accessing the char * msg which holds
-      the literal string that represents the message you will encode.
-    - a bit counter
-    - an int array to hold the 9 values that will be added to the 3 RGB
-      values for the 3 pixels
 2.	Call writeHeader
 3.	Use charToBinary() to convert each character in the message to its
     binary number equivalent.
 4.	Encode the binary number in the image.
-5.	After looping through all pixels, when there are no more characters left...
-    Use writePixels() to write the new pixels to the output file
-    (You will need nested loops and some if statements for this function)
+5.	Use writePixels() to write the new pixels to the output file
+  
 */
 void encodeMsg(FILE* in, FILE* out, char* msg){
     // step 1: declare variables
