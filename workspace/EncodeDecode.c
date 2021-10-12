@@ -175,7 +175,31 @@ void queue(int, int*, int*);
 Parameters:
 Returns: void
 Converts a decimal number to binary, storing the bits in an array. */
-void dec2bin(int*, int);
+void dec2bin(int* bitArray, int num){
+
+  /*array to store binary number*/
+  /* it will be backwards at first */
+  int binaryBackwards[32];
+
+          // counter for binary array
+          int i = 0;
+          while (num > 0) {
+              // storing remainder in
+              // binary array
+              binaryBackwards[i] = num % 2;
+              num = num / 2;
+              i++;
+          }
+
+
+          /*fixing binary order*/
+          int count2 = 0;
+          for (int j = i - 1; j >= 0; j--){
+              bitArray[count2] = binaryBackwards[j];
+              count2++;
+            }
+
+}
 
 /*
 Parameters:
