@@ -13,40 +13,20 @@ PA1 - DUE OCT. 8
 #include "./EncodeDecode.h"
 #include "./utils.h"
 
-/*
-Parameters:
-    - pixel: pixel_t struct pointer to the pixel we want to modify
-    - header: header_t struct of the pixel we want to modify
-Returns:
-Removes the value of the ones place of each channel in the pixel
-and replaces it with 0. For example, if the red channel of the first pixel
-has an integer value of 255, it reduces the value by 5 to equal 250.*/
+/*Removes the value of the ones place of each channel in the pixel
+and replaces it with 0.*/
 void removeDigit(pixel_t** pixel, header_t header){
 
 };
 
 /*
-Parameters:
-    - in -
-Returns:
-Implements the logic described in the image in the PA1Specs document.
-For each character, adds a 1 or 0 to the value of each of the three channels
-for the three pixels.
-
-Steps:
 1.	Declare necessary local variables
-    - character counter, helpful when accessing the char * msg which holds
-      the literal string that represents the message you will encode.
-    - a bit counter
-    - an int array to hold the 9 values that will be added to the 3 RGB
-      values for the 3 pixels
 2.	Call writeHeader
 3.	Use charToBinary() to convert each character in the message to its
     binary number equivalent.
 4.	Encode the binary number in the image.
-5.	After looping through all pixels, when there are no more characters left...
-    Use writePixels() to write the new pixels to the output file
-    (You will need nested loops and some if statements for this function)
+5.	Use writePixels() to write the new pixels to the output file
+  
 */
 void encodeMsg(FILE* in, FILE* out, char* msg){
 //     // step 1: declare variables
@@ -116,11 +96,7 @@ void encodeMsg(FILE* in, FILE* out, char* msg){
 }
 
 
-/*
-Parameters:
-Returns: void
-// no comments provided in doc specs
-*/
+/*convert from a character to binary value */
 void charToBinary(char character, int *binArray){
     int i = 8;
     while (character > 0){
@@ -130,13 +106,7 @@ void charToBinary(char character, int *binArray){
     }
 };
 
-/*
-Parameters:
-Returns:
-Converts a binary number to char.
-    - (Notice this is returned as an unsigned char...
-       Remember we are working with three pixels which equals 9 bits,
-       but the most significant bit is always 0. Why???)*/
+/*Converts a binary number to char.*/
  unsigned char binToCharacter(int* integer){
      /*use strol to convert from a string into a long int*/
      /*parameters:  string containing the binary, the beginning & the base*/
@@ -161,8 +131,6 @@ Converts a binary number to char.
  }
 
 /*
-Parameters:
-Returns: void
 (Called by decodeMsg... As the decodeMsg function grabs the onesdigit of each
 pixel channel (red, green, and blue) it passes that value to queue as “n”.)
 
@@ -197,10 +165,7 @@ void queue(int digit, int* digitArr, int* digitCounter){
     }
 };
 
-/*
-Parameters:
-Returns: void
-Converts a decimal number to binary, storing the bits in an array. */
+/*Converts a decimal number to binary, storing the bits in an array. */
 void dec2bin(int* bitArray, int num){
 
   /*array to store binary number*/
@@ -230,23 +195,14 @@ void dec2bin(int* bitArray, int num){
 /*
 Parameters:
 Returns: void
-1.	Calls readHeader() to read the header of the encoded ppm image
+1.	Calls readHeader()
 2.	Allocates the memory for the pixels of the encoded ppm image.
-        Suggestion:  you could create a function that allocates the memory
-        for the pixels then return the double pointer.
-3.	Uses readPixel() calls to read the pixels of the encoded ppm image,
-    storing them in the memory it just allocated.
+3.	Uses readPixel() 
 4.	Grabs the last digit of the red, green, and blue numbers,
-    saves them as integers (int red, int green, int blue)
+    saves them as integers
 5.	Sends each number it's grabbed to the queue function.
 6.	Continues this process for all pixels in the image.
-    As an example:
-    for the first red digit I grab I will:
-        - call queue(digit, arr, address),
-          where [digit] is the digit
-                [arr] is an array that'll be used by queue to store this digit
-            and [address] is the address of a variable that will be used to
-                keep track of the number of digits passed to queue.*/
+*/
 void decodeMsg(FILE* in){
     // 1.	Calls readHeader()
     header_t h = readHeader(in);
