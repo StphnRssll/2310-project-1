@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     checkFile(out);
     /*This is my test message.  It can be something different*/
     char* msg = "I hope this works!";
-    encodeMsg(in, out, msg);
+    // encodeMsg(in, out, msg);
 
     // from stephen: this reads the file we just made into [dec]
     FILE* dec = fopen(argv[3], "r");

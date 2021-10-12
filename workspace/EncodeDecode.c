@@ -49,49 +49,49 @@ Steps:
     (You will need nested loops and some if statements for this function)
 */
 void encodeMsg(FILE* in, FILE* out, char* msg){
-    // step 1: declare variables
-     int charCounter = 0;
-     int bitCounter = 7;
-     /*nine values to be added to RGB pixels*/
-     int vals[9];
-     pixel_t** pix;
+//     // step 1: declare variables
+//      int charCounter = 0;
+//      int bitCounter = 7;
+//      /*nine values to be added to RGB pixels*/
+//      int vals[9];
+//      pixel_t** pix;
 
-    // step 2: call readHeader, passing in our original ppm's header
-    header_t h = readHeader(in);
-    pix = readPixel(in, h)
+//     // step 2: call readHeader, passing in our original ppm's header
+//     header_t h = readHeader(in);
+//     // pix = readPixel(in, h)
 
-    // step 3: write the header info to output file
-    writeHeader(out, h);
+//     // step 3: write the header info to output file
+//     writeHeader(out, h);
 
-    /*removes last digit from data containing pixels*/
-    removeDigit(pix, h);
+//     /*removes last digit from data containing pixels*/
+//     removeDigit(pix, h);
 
-    /*calculate char count of msg*/
-    while(msg[charCounter+1] != '\0'){
-      charCounter = charCounter+1;
-    }
+//     /*calculate char count of msg*/
+//     while(msg[charCounter+1] != '\0'){
+//       charCounter = charCounter+1;
+//     }
 
-    /*loop through pixel data in order to Encode
-    add last digit of message to pixels*/
-    for(int i = 0; i<charCounter+1; i++){
-      charToBinary(msg[i], temp);
-    }
+//     /*loop through pixel data in order to Encode
+//     add last digit of message to pixels*/
+//     for(int i = 0; i<charCounter+1; i++){
+//       charToBinary(msg[i], temp);
+//     }
 
-  /**************I STOPPED WORKING HERE - CM**********************/
+//   /**************I STOPPED WORKING HERE - CM**********************/
 
-    // allocate msgAs2DArrayOfBinary
-    int msgLength = strlen(msg);
-    int rows = msgLength;
-    int cols = 8;
-    int* msgAs2DArrayOfBinary[rows];
-    for (int i = 0; i < rows; i++){
-        msgAs2DArrayOfBinary[i] = (int*)malloc(cols * sizeof(int));
-    }
-    // Loop through msg[] for the length of the message, store each character
-    // in its binary form in msgAs2DArrayOfBinary[]
-    for(int i = 0; i < msgLength; i++){
-        charToBinary(msg[i],msgAs2DArrayOfBinary[i]);
-    }
+//     // allocate msgAs2DArrayOfBinary
+//     int msgLength = strlen(msg);
+//     int rows = msgLength;
+//     int cols = 8;
+//     int* msgAs2DArrayOfBinary[rows];
+//     for (int i = 0; i < rows; i++){
+//         msgAs2DArrayOfBinary[i] = (int*)malloc(cols * sizeof(int));
+//     }
+//     // Loop through msg[] for the length of the message, store each character
+//     // in its binary form in msgAs2DArrayOfBinary[]
+//     for(int i = 0; i < msgLength; i++){
+//         charToBinary(msg[i],msgAs2DArrayOfBinary[i]);
+//     }
 
     // testing that msg[] is properly populated
     // for(int i = 0; i < msgLength; i++){
@@ -189,10 +189,11 @@ queue prints the character.
 void queue(int digit, int* digitArr, int* digitCounter){
     // append digit to digitArr and increment digitCounter
     digitArr[*digitCounter] = digit;
-    *digitCounter++;
+    *digitCounter = *digitCounter+1;
     // if digitCounter >=9, convert digitArr to a char and print
-    if(digitCounter>=9){
-        binToCharacter(digitArr)
+    if(*digitCounter>=9){
+        printf("%c", binToCharacter(digitArr));
+        *digitCounter = 0;
     }
 };
 
