@@ -67,8 +67,8 @@ header_t readHeader(FILE* in){
 
 /*
 Parameters:
-    -in:
-    -hdr:
+    -in:input file with pixel information
+    -hdr: pixel information will be read into the header
 Returns: 2D array of pixels
 Reads the values of the pixels in the ppm image by:
     - Dynamically allocating the memory for the 2D array.
